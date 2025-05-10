@@ -8,7 +8,7 @@ class AuthService {
       password: password.trim(),
       emailAddress: email,
     );
-
+    print('Hello, $user');
     return await user.signUp();
   }
 
@@ -16,11 +16,13 @@ class AuthService {
     try {
       final user = ParseUser(email, password, email);
       final response = await user.login();
-      
+
       if (!response.success) {
-        print('Login failed: ${response.error?.message} (Code: ${response.error?.code})');
+        print(
+          'Login failed: ${response.error?.message} (Code: ${response.error?.code})',
+        );
       }
-      
+
       return response;
     } catch (e) {
       print('Login exception: $e');
@@ -53,7 +55,9 @@ class AuthService {
       final user = await ParseUser.currentUser();
       if (user != null) {
         //Validate session token
-        final response = await ParseUser.getCurrentUserFromServer(user.sessionToken);
+        final response = await ParseUser.getCurrentUserFromServer(
+          user.sessionToken,
+        );
         if (response != null) {
           return response.success;
         }
@@ -64,8 +68,3 @@ class AuthService {
     }
   }
 }
-
-
-
-
-

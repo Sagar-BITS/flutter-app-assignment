@@ -6,12 +6,13 @@ import 'services/notification_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   await Parse().initialize(
     Back4AppConfig.applicationId,
     Back4AppConfig.serverUrl,
     clientKey: Back4AppConfig.clientKey,
     debug: true,
+    autoSendSessionId: true,
   );
 
   await NotificationService.init();
@@ -25,7 +26,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Employee Management',
+      title: 'Task Management App',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color(0xFF2196F3), // Vibrant blue
@@ -40,9 +41,7 @@ class MainApp extends StatelessWidget {
           backgroundColor: const Color(0xFF2196F3),
           foregroundColor: Colors.white,
           centerTitle: true,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(0),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
         ),
         cardTheme: CardTheme(
           elevation: 2,
@@ -77,7 +76,10 @@ class MainApp extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             borderSide: const BorderSide(color: Color(0xFF2196F3), width: 2),
           ),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 16,
+          ),
         ),
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
           backgroundColor: Color(0xFF2196F3),
@@ -87,7 +89,10 @@ class MainApp extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 8,
+          ),
         ),
         snackBarTheme: SnackBarThemeData(
           behavior: SnackBarBehavior.floating,
@@ -96,7 +101,11 @@ class MainApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const LoginScreen(),
+      home: const LoginPage(),
+      routes: {
+        '/login': (context) => LoginPage(),
+        //'/taskList': (context) => TaskListPage()
+      },
     );
   }
 }
