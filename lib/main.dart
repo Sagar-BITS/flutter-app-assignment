@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 import 'config/back4app_config.dart';
 import 'screens/login_screen.dart';
-import 'services/notification_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,8 +13,6 @@ void main() async {
     debug: true,
     autoSendSessionId: true,
   );
-
-  await NotificationService.init();
 
   runApp(const MainApp());
 }

@@ -1,6 +1,6 @@
 name: assignement_flutter_cpad
-description: "A Flutter employee management application with Back4App backend"
-publish_to: 'none'
+description: "Task management application with Flutter & Back4App"
+publish_to: "none"
 version: 0.1.0
 
 environment:
