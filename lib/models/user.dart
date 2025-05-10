@@ -2,14 +2,14 @@ import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 import 'package:crypto/crypto.dart';
 import 'dart:convert';
 
-class HRUser extends ParseUser {
-  HRUser({String? username, String? password, String? emailAddress})
-      : super(username, password, emailAddress);
+class User extends ParseUser {
+  User({String? username, String? password, String? emailAddress})
+    : super(username, password, emailAddress);
 
-  HRUser.clone() : this();
+  User.clone() : this();
 
   @override
-  clone(Map<String, dynamic> map) => HRUser.clone()..fromJson(map);
+  clone(Map<String, dynamic> map) => User.clone()..fromJson(map);
 
   String getHashedPassword(String password) {
     var bytes = utf8.encode(password);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'login_screen.dart';
+import 'login_page.dart';
 import '../services/auth_service.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -30,6 +30,7 @@ class _SignUpPageState extends State<SignUpPage> {
     try {
       // Send the sign-up request to Back4App
       final response = await _authService.signUp(
+        _usernameController.text.trim(),
         _emailController.text.trim(),
         _passwordController.text.trim(),
       );

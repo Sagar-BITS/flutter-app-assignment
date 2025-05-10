@@ -3,22 +3,27 @@
 A Flutter application demonstrating CRUD operations using Back4App as the backend.
 
 # Assignment document
+
 [https://github.com/vissharm/assignement_flutter_cpad/blob/master/CrossPlatformAssignmentFinal.pdf](https://github.com/vissharm/assignement_flutter_cpad/blob/master/CrossPlatformAssignmentFinal.pdf)
-### Note:  Do click "more pages" again and again at the bottom of page to see all pages of slide document.
+
+### Note: Do click "more pages" again and again at the bottom of page to see all pages of slide document.
 
 # FOR COURSE STUDENTS: CAUTION: REPO IS MADE PUBLIC FOR EVALUATION, SO DO NOT COPY, ALREADY SUBMITTED AND SENT TO PROFESSOR. FEEL FREE TO LEARN FROM IT AND APPLY CONCEPTS. ALWAYS APPRECIATE KNOWLEDGE SHARING.
 
 # Demo recording
+
 https://youtu.be/RZABm8SFpk4
 
 ## Features
 
 1. **Authentication**
+
    - User signup and login using Back4App's Parse SDK
    - Session management handled by Parse SDK
    - Auto-logout on session expiration
 
 2. **Employee Management**
+
    - Create, Read, Update, Delete (CRUD) operations
    - List view with employee details
    - Form validation
@@ -30,8 +35,9 @@ https://youtu.be/RZABm8SFpk4
    - Notification count badge
    - 24-hour notification display filter
    - Local storage using `SharedPreferences`
-  
+
 ## Screenshots
+
 ![image](https://github.com/user-attachments/assets/067e04ae-100b-4e7a-858a-d4e3d213b7aa)
 ![image](https://github.com/user-attachments/assets/14bfa409-e8b2-4766-a85a-d00601637b0b)
 ![image](https://github.com/user-attachments/assets/651a6336-84bd-4dca-85ad-f7a721e6f238)
@@ -40,12 +46,14 @@ https://youtu.be/RZABm8SFpk4
 ## Development Steps
 
 1. Create a new Flutter project:
+
 ```bash
 flutter create assignement_flutter_cpad
 cd assignement_flutter_cpad
 ```
 
 2. Add required dependencies in `pubspec.yaml`:
+
 ```yaml
 dependencies:
   flutter:
@@ -57,11 +65,13 @@ dependencies:
 ```
 
 3. Install dependencies:
+
 ```bash
 flutter pub get
 ```
 
 4. Back4App Setup:
+
    - Create an account on [Back4App](https://www.back4app.com/)
    - Create a new app
    - Get Application ID and Client Key from Security & Keys
@@ -77,6 +87,7 @@ flutter pub get
 
 5. Configure Back4App credentials:
    Create `lib/config/back4app_config.dart`:
+
 ```dart
 class Back4AppConfig {
   static const String applicationId = 'YOUR_APP_ID';
@@ -103,8 +114,8 @@ lib/
 │   └── notification_service.dart # Notification management
 ├── screens/
 │   ├── auth/
-│   │   ├── login_screen.dart   # Login screen
-│   │   └── signup_screen.dart  # Signup screen
+│   │   ├── login_page.dart   # Login screen
+│   │   └── signup_page.dart  # Signup screen
 │   ├── employee/
 │   │   ├── employee_list_screen.dart  # Employee listing
 │   │   └── employee_form_screen.dart  # Add/Edit employee
@@ -126,6 +137,7 @@ lib/
 ### Data Models
 
 1. **Employee Model**
+
 ```dart
 class Employee {
   final String id;
@@ -133,19 +145,20 @@ class Employee {
   final String email;
   final String position;
   final double salary;
-  
+
   // Constructor and methods
 }
 ```
 
 2. **Notification Model**
+
 ```dart
 class NotificationItem {
   final String message;
   final NotificationType type;
   final DateTime timestamp;
   final bool isRead;
-  
+
   // Constructor and methods
 }
 ```
@@ -153,6 +166,7 @@ class NotificationItem {
 ### Service Layer
 
 1. **Authentication Service**
+
 ```dart
 class AuthService {
   Future<User> login(String username, String password);
@@ -163,6 +177,7 @@ class AuthService {
 ```
 
 2. **Employee Service**
+
 ```dart
 class EmployeeService {
   Future<List<Employee>> getEmployees();
@@ -174,6 +189,7 @@ class EmployeeService {
 ```
 
 3. **Notification Service**
+
 ```dart
 class NotificationService {
   Future<void> addNotification(NotificationItem notification);
@@ -194,7 +210,7 @@ graph TD
     A[UI Layer] -->|User Actions| B[AuthService]
     A -->|CRUD Operations| C[EmployeeService]
     A -->|Notifications| D[NotificationService]
-    
+
     subgraph "UI Layer"
     A1[Login/Signup Screens]
     A2[Employee List Screen]
@@ -205,7 +221,7 @@ graph TD
     B[AuthService]
     C[EmployeeService]
     D[NotificationService]
-    
+
     %% Session Validation Flow
     C -->|Validate Session| B
     D -->|Validate Session| B
@@ -218,7 +234,7 @@ graph TD
     F[User Management]
     G[Employee Data]
     H[ACL Management]
-    
+
     E --> F
     E --> G
     E --> H
@@ -238,9 +254,11 @@ graph TD
 ## Testing
 
 1. **Unit Tests**
+
    - **(Note: Unit tests are not implemented in the codebase)**
 
 2. **Widget Tests**
+
    - **(Note: Widget tests are not implemented in the codebase)**
 
 3. **Integration Tests**
@@ -267,6 +285,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 Authentication is handled entirely through Back4App's Parse Server SDK:
 
 1. **User Authentication**
+
 ```dart
 // lib/services/auth_service.dart
 Future<ParseResponse> login(String email, String password) async {
@@ -287,6 +306,7 @@ Future<ParseResponse> login(String email, String password) async {
 ```
 
 2. **Session Management**
+
 ```dart
 // lib/services/auth_service.dart
 Future<bool> isLoggedIn() async {
@@ -307,10 +327,11 @@ Future<bool> isLoggedIn() async {
 ```
 
 3. **User Registration**
+
 ```dart
 // lib/services/auth_service.dart
 Future<ParseResponse> signUp(String email, String password) async {
-  final user = HRUser(
+  final user = User(
     username: email,
     password: password.trim(),
     emailAddress: email,
@@ -320,6 +341,7 @@ Future<ParseResponse> signUp(String email, String password) async {
 ```
 
 4. **Logout Handling**
+
 ```dart
 // lib/services/auth_service.dart
 Future<bool> logout() async {
@@ -341,19 +363,22 @@ Future<bool> logout() async {
 The application leverages Back4App's built-in security features through Parse SDK:
 
 1. **Password Security**
+
    - Passwords are securely handled by Parse SDK
    - No local password storage or manipulation
    - Secure transmission over HTTPS
 
 2. **Session Management**
+
    - Automatic session token generation and validation
    - Server-side session expiration
    - Secure token storage
    - Auto-logout on invalid sessions
 
 3. **Error Handling**
+
 ```dart
-// lib/screens/login_screen.dart
+// lib/screens/login_page.dart
 if (response.error != null) {
   switch (response.error!.code) {
     case 101: // Invalid username/password
@@ -386,6 +411,7 @@ await Parse().initialize(
 ```
 
 Configuration is managed through:
+
 ```dart
 // lib/config/back4app_config.dart
 class Back4AppConfig {
@@ -399,9 +425,11 @@ class Back4AppConfig {
 
 ### 1. Authentication Screens
 
-#### Login Screen (`lib/screens/login_screen.dart`)
+#### Login Screen (`lib/screens/login_page.dart`)
+
 - Email and password authentication
 - Form validation:
+
 ```dart
 TextFormField(
   controller: _emailController,
@@ -420,17 +448,20 @@ TextFormField(
   },
 )
 ```
+
 - Loading state handling during authentication
 - Error message display
 - Navigation to signup screen
 - Successful login redirects to Employee List Screen
 
-#### Signup Screen (`lib/screens/signup_screen.dart`)
+#### Signup Screen (`lib/screens/signup_page.dart`)
+
 - User registration form
 - Form validation for:
   - Email format
   - Password requirements
 - Success/Error notifications
+
 ```dart
 Future<void> _signup() async {
   if (_formKey.currentState!.validate()) {
@@ -462,10 +493,12 @@ Future<void> _signup() async {
 ### 2. Employee Management Screens
 
 #### Employee List Screen (`lib/screens/employee_list_screen.dart`)
+
 - Displays list of employees
 - Add/Edit/Delete operations
 - Navigation to employee form
 - Notification badge for system notifications
+
 ```dart
 Future<void> _showEmployeeForm({Employee? employee}) async {
   final result = await Navigator.push(
@@ -480,7 +513,7 @@ Future<void> _showEmployeeForm({Employee? employee}) async {
     if (mounted) {
       NotificationService.showNotification(
         context,
-        message: employee == null 
+        message: employee == null
             ? 'Employee added successfully'
             : 'Employee updated successfully',
       );
@@ -490,6 +523,7 @@ Future<void> _showEmployeeForm({Employee? employee}) async {
 ```
 
 #### Employee Form Screen (`lib/screens/employee_form_screen.dart`)
+
 - Add/Edit employee details
 - Form validation for:
   - Name (required)
@@ -501,6 +535,7 @@ Future<void> _showEmployeeForm({Employee? employee}) async {
 ### 3. Notification System
 
 #### Notification History Screen (`lib/screens/notification_history_screen.dart`)
+
 - Lists all system notifications
 - Timestamp display using `timeago` package
 - 24-hour filter for notifications
@@ -510,6 +545,7 @@ Future<void> _showEmployeeForm({Employee? employee}) async {
 ## Data Models
 
 ### Employee Model
+
 ```dart
 class Employee {
   final String id;
@@ -517,19 +553,20 @@ class Employee {
   final String email;
   final String position;
   final double salary;
-  
+
   // Constructor and methods
 }
 ```
 
 ### Notification Model
+
 ```dart
 class NotificationItem {
   final String message;
   final NotificationType type;
   final DateTime timestamp;
   final bool isRead;
-  
+
   // Constructor and methods
 }
 ```
@@ -537,18 +574,21 @@ class NotificationItem {
 ## Service Layer
 
 ### Authentication Service
+
 - Handles user authentication through Parse SDK
 - Session management
 - Login/Signup operations
 - Error handling
 
 ### Employee Service
+
 - CRUD operations for employees
 - Data validation
 - Error handling
 - Back4App integration
 
 ### Notification Service
+
 - Notification management
 - Local storage using SharedPreferences
 - Notification filtering
@@ -557,12 +597,14 @@ class NotificationItem {
 ## Error Handling
 
 ### Form Validation
+
 - Required field validation
 - Email format validation
 - Numeric field validation
 - Custom error messages
 
 ### API Error Handling
+
 - Network error detection
 - Parse SDK error handling
 - User-friendly error messages
@@ -571,19 +613,20 @@ class NotificationItem {
 ## UI Components
 
 ### Common Widgets
+
 - Loading indicators
 - Error dialogs
 - Form fields with validation
 - Notification badges
 
 ### Employee Widgets
+
 - Employee list items
 - Employee form fields
 - Action buttons (Edit/Delete)
 
 ### Notification Widgets
+
 - Notification badge with count
 - Notification list items
 - Timestamp display
-
-

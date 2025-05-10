@@ -1,10 +1,14 @@
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
-import '../models/hr_user.dart';
+import '../models/user.dart';
 
 class AuthService {
-  Future<ParseResponse> signUp(String email, String password) async {
-    final user = HRUser(
-      username: email,
+  Future<ParseResponse> signUp(
+    String username,
+    String email,
+    String password,
+  ) async {
+    final user = User(
+      username: username,
       password: password.trim(),
       emailAddress: email,
     );
