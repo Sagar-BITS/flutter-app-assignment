@@ -2,9 +2,16 @@ import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 import '../models/task.dart';
 
 class TaskService {
-  // Fetch all tasks from Back4App
+  // Fetch tasks only for the logged-in user
   Future<List<Task>> getTasks() async {
-    final query = QueryBuilder<Task>(Task())..orderByDescending('createdAt');
+    final user = await ParseUser.currentUser() as ParseUser?;
+    if (user == null) throw Exception('No logged-in user found.');
+
+    final query =
+        QueryBuilder<Task>(Task())
+          ..whereEqualTo('owner', user)
+          ..orderByDescending('dueDate');
+
     final response = await query.query();
 
     if (response.success && response.results != null) {
@@ -14,12 +21,17 @@ class TaskService {
     }
   }
 
-  // Fetch tasks by their status from Back4App
+  // Fetch tasks for the logged-in user by status
   Future<List<Task>> getTasksByStatus(String status) async {
+    final user = await ParseUser.currentUser() as ParseUser?;
+    if (user == null) throw Exception('No logged-in user found.');
+
     final query =
         QueryBuilder<Task>(Task())
+          ..whereEqualTo('owner', user)
           ..whereEqualTo('status', status)
-          ..orderByDescending('createdAt');
+          ..orderByDescending('dueDate');
+
     final response = await query.query();
 
     if (response.success && response.results != null) {
@@ -29,8 +41,12 @@ class TaskService {
     }
   }
 
-  // Add a new task to Back4App
+  // Add a new task linked to the current user
   Future<void> addTask(Task task) async {
+    final user = await ParseUser.currentUser() as ParseUser?;
+    if (user == null) throw Exception('No logged-in user found.');
+
+    task.set('owner', user); // Link task to user
     final response = await task.save();
 
     if (!response.success) {
@@ -38,7 +54,7 @@ class TaskService {
     }
   }
 
-  // Update an existing task in Back4App
+  // Update an existing task
   Future<void> updateTask(Task updatedTask) async {
     final response = await updatedTask.save();
 
@@ -47,7 +63,7 @@ class TaskService {
     }
   }
 
-  // Delete a task from Back4App by its objectId
+  // Delete a task by its objectId
   Future<void> deleteTask(String objectId) async {
     final query = QueryBuilder<Task>(Task())
       ..whereEqualTo('objectId', objectId);
