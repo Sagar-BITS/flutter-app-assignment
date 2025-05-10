@@ -38,37 +38,4 @@ class AuthService {
       return response;
     }
   }
-
-  Future<bool> logout() async {
-    try {
-      final user = await ParseUser.currentUser();
-      if (user != null) {
-        await user.logout();
-        print('User logged out successfully');
-        return true;
-      }
-      return false;
-    } catch (e) {
-      print('Logout failed: $e');
-      throw Exception('Logout failed: $e');
-    }
-  }
-
-  Future<bool> isLoggedIn() async {
-    try {
-      final user = await ParseUser.currentUser();
-      if (user != null) {
-        //Validate session token
-        final response = await ParseUser.getCurrentUserFromServer(
-          user.sessionToken,
-        );
-        if (response != null) {
-          return response.success;
-        }
-      }
-      return false;
-    } catch (e) {
-      return false;
-    }
-  }
 }

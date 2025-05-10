@@ -58,11 +58,10 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _navigateToSignUp() {
-    // TODO: Implement navigation to Sign Up Page
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => SignUpPage()),
-    );
+    ); // Navigate to Sign Up Page
     ScaffoldMessenger.of(
       context,
     ).showSnackBar(const SnackBar(content: Text('Navigate to Sign Up Page')));

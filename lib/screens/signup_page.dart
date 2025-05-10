@@ -36,7 +36,6 @@ class _SignUpPageState extends State<SignUpPage> {
       );
 
       if (response.success) {
-        // On successful sign up, navigate to login page
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(SnackBar(content: Text('User created successfully!')));

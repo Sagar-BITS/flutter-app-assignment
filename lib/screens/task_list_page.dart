@@ -21,8 +21,8 @@ class _TaskListPageState extends State<TaskListPage> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   DateTime? selectedDueDate;
-  String selectedStatus = 'Pending'; // Added status field
-  Task? editingTask; // Track which task is being edited
+  String selectedStatus = 'Pending';
+  Task? editingTask;
 
   @override
   void initState() {
@@ -204,7 +204,6 @@ class _TaskListPageState extends State<TaskListPage> {
                     const SizedBox(height: 10),
                     _buildDatePickerButton(),
                     const SizedBox(height: 10),
-                    // Modified dropdown here
                     InputDecorator(
                       decoration: InputDecoration(
                         labelText: 'Status',

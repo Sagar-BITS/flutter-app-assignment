@@ -99,10 +99,7 @@ class MainApp extends StatelessWidget {
         ),
       ),
       home: const LoginPage(),
-      routes: {
-        '/login': (context) => LoginPage(),
-        //'/taskList': (context) => TaskListPage()
-      },
+      routes: {'/login': (context) => LoginPage()},
     );
   }
 }
