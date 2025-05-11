@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 import '../models/task.dart';
 import '../services/task_service.dart';
+import 'logout_button.dart';
 
 class TaskListPage extends StatefulWidget {
   const TaskListPage({super.key});
@@ -264,6 +265,21 @@ class _TaskListPageState extends State<TaskListPage> {
         backgroundColor: primaryColor,
         title: const Text('Task List'),
         centerTitle: true,
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: const [
+            DrawerHeader(
+              decoration: BoxDecoration(color: Colors.indigo),
+              child: Text(
+                'Welcome!',
+                style: TextStyle(color: Colors.white, fontSize: 24),
+              ),
+            ),
+            LogoutButton(),
+          ],
+        ),
       ),
       body: Column(
         children: [
